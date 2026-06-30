@@ -2,7 +2,6 @@
 const http = require('http')
 
 const server = http.createServer((req,res)=>{
-    
 
     if(req.url ==="/"){
         res.end("Hello Aman");
@@ -16,8 +15,8 @@ const server = http.createServer((req,res)=>{
     else{
         res.end("Error: Page not found. Goto right url.");
     }
-
 });
+
 
 const port = 4000;
 
