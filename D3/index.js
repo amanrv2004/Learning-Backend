@@ -15,6 +15,8 @@ console.log(sum(2,3))
 
 
 
-fs.readFile("./data.json","utf-8",(err,res)=>{
-    console.log(res);
-})
+// fs.readFile("./data.json","utf-8",(err,res)=>{
+//     console.log(res);
+// })
+const data = fs.readFileSync("./data.json","utf-8");
+console.log(data);
