@@ -14,7 +14,7 @@ const server = http.createServer((req,res)=>{
         res.end("This is our About Page.");
     }
     else{
-        res.end("Error: Page not found");
+        res.end("Error: Page not found. Goto right url.");
     }
 
 });
