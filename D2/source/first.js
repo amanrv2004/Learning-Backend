@@ -1,5 +1,4 @@
-// import sum from "./second.js";
-const sum = require("./second")
+import sum from "./second.js";
 
 
 sum(2,3);
