@@ -13,17 +13,18 @@ const app = express();
 //     })
 // });
 
-
-app.use("/about",(req,res)=>{
+app.use("/about/:id/:user",(req,res)=>{
+    console.log(req.params);
     res.send("I am Your About Page")
 })
-app.use("/detail",(req,res)=>{
-    res.send("I am Your Detail Page")
-})
 
-app.use("/",(req,res)=>{
-   res.send("Welcome to Home Page")
-})
+// app.use("/detail",(req,res)=>{
+//     res.send("I am Your Detail Page")
+// })
+
+// app.use("/",(req,res)=>{
+//    res.send("Welcome to Home Page")
+// })
 
 
 
