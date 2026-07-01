@@ -9,7 +9,6 @@ const app = express();
 
 //get  
 
-
 // parsing 
 
 app.use(express.json());
