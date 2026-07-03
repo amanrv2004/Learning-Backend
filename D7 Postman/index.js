@@ -28,11 +28,6 @@ app.post("/book",(req,res)=>{
     res.send("Data Saved Successfully");
 })
 
-// app.delete("/book",(req,res)=>{
-//     BookStore.deleteMany({});
-//     res.send("Data Deleted Successfully");
-// })
-
 app.listen(3000,()=>{
     console.log(`http://localhost:3000`);
 })
