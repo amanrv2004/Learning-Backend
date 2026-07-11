@@ -107,6 +107,7 @@ app.get("/user",(req,res)=>{
 app.get("/dummmy",(req,res)=>{
     try{
     JSON.parse('{"name":"Aman"}');
+    console.log("Working")
     res.send("hello");
     }
     catch(err){
