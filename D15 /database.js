@@ -1,11 +1,8 @@
-// const url = 'mongodb+srv://emergency_hospital_db:@Aman2626@learnbackend.yqy4ipr.mongodb.net/?appName=LearnBackend'
 
-const { MongoClient } = require('../D15 /node_modules/mongodb/mongodb');
-// or as an es module:
-// import { MongoClient } from 'mongodb'
 
+const { MongoClient } = require('mongodb');
 // Connection URL
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://webpixellibrary_db_user:Qwert12345@cluster0.nrmzxfr.mongodb.net/LearnBackend?appName=Cluster0';
 const client = new MongoClient(url);
 
 // Database Name
