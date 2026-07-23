@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 async function main() {
-  mongoose.connect('mongodb+srv://webpixellibrary_db_user:Qwert12345@cluster0.nrmzxfr.mongodb.net/LearnBackend?appName=Cluster0');
+  mongoose.connect('mongodb+srv://webpixellibrary_db_user:Qwert12345@cluster0.nrmzxfr.mongodb.net/Instragram?appName=Cluster0');
 
   //create schema
   // const userSchema = new Schema({

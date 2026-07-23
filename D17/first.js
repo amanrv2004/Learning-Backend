@@ -7,46 +7,51 @@ const User = require("./Models/Users")
 
 app.use(express.json());
 
-app.get("/info",async(req,res)=>{
-   const ans =  await User.find({"name":"Aman"});
-   res.send(ans);
+app.post("/register" , async(req,res)=>{
+    try {
+        const data = req.body;
+        await User.create(data);
+        res.status(200).send("User registered Successfully !")
+    } catch (err) {
+        res.status(500).send("Error "+ err.message);
+    }
 })
 
-app.post("/info",async(req,res)=>{
-    
-    // const ans = new User(req.body);
-    // await ans.save();
-   try{
-    await User.create(req.body)
-    res.status(200).send("Successfully Updated new User")
-   }
-   catch(err){
-    res.status(500).send(err);
-   }
-
-   
-});
-
-app.delete("/info",async (req,res)=>{
-     
-    try{
-        await User.deleteOne({"name":"Vishal"});
-        res.status(200).send("User Deleted Successfully");
+app.get("/info" , async(req,res)=>{
+    try {
+        const ans = await User.find();
+        res.status(200).send(ans);
+    } catch (err) {
+        res.status(500).send("Error "+ err.message);
     }
-    catch(err){
-    res.status(500).send(err);
-   }
 })
 
-app.put("/info",async (req,res)=>{
-     
-    try{
-        await User.updateOne({"name":"Arpit"},{"name":"Aman","city":"Lucknow"});
-        res.status(200).send("User Updated Successfully");
+app.get("/user/:id" , async(req,res)=>{
+    try {
+        const ans = await User.findById(req.params.id);
+        res.status(200).send(ans);
+    } catch (err) {
+        res.status(500).send("Error "+ err.message);
     }
-    catch(err){
-    res.status(500).send(err);
-   }
+})
+
+app.delete("/user/:id" , async(req,res)=>{
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).send("Deleted Successfully ");
+    } catch (err) {
+        res.status(500).send("Error "+ err.message);
+    }
+})
+
+app.patch("/user" , async(req,res)=>{
+    try {
+        const {_id, ...update} = req.body;
+        await User.findByIdAndUpdate(_id,update);
+        res.status(200).send(" Updated Successfully Successfully ");
+    } catch (err) {
+        res.status(500).send("Error "+ err.message);
+    }
 })
 
 
