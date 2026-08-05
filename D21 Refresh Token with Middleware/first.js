@@ -1,4 +1,4 @@
- const { Auth } = require("./middleware/auth")
+const {userAuth}  = require("./middleware/userAuth")
 const express = require("express");
 const app = express();
 const main = require("./database")
@@ -36,7 +36,7 @@ app.post("/login" , async(req,res)=>{
         }
 
         //jwt token 
-        const token = jwt.sign({ _id:people._id , emailId:people.emailId}, 'Aman1321',{expiresIn:10});
+        const token = jwt.sign({ _id:people._id , emailId:people.emailId}, 'Aman1321',{expiresIn:'1d'});
 
 
         res.cookie("token",token)
@@ -46,35 +46,18 @@ app.post("/login" , async(req,res)=>{
     }
 })
 
-app.get("/info" , async(req,res)=>{
+app.get("/user" , userAuth, async(req,res)=>{
     try {
-        //validate the user 
-        const payload = jwt.verify(req.cookies.token,"Aman1321")
-        const ans = await User.find();
-        console.log(req.cookies);
-        console.log(payload);
-        
-
-        res.status(200).send(ans);
+        res.status(200).send(req.ans);
     } catch (err) {
         res.status(500).send("Error "+ err.message);
     }
 })
 
-app.get("/user" , async(req,res)=>{
+app.delete("/user/:id" , userAuth ,async(req,res)=>{
     try {
+        //authenticate user :Token validate
 
-        //
-        const payload = jwt.verify(req.cookies.token,"Aman1321")
-        const ans = await User.findById(payload._id);
-        res.status(200).send(ans);
-    } catch (err) {
-        res.status(500).send("Error "+ err.message);
-    }
-})
-
-app.delete("/user/:id" , async(req,res)=>{
-    try {
         await User.findByIdAndDelete(req.params.id);
         res.status(200).send("Deleted Successfully ");
     } catch (err) {
