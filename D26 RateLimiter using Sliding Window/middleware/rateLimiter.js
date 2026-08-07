@@ -1,28 +1,33 @@
 
+const { RedisSentinel, RedisClient } = require("redis");
 const redisClient = require("../config/redis");
+
+
+const windowSize = 3600;  // total time
+const Maxrequest = 60; 
+
 
 const rateLimiter = async (req,res,next)=>{
     try{
 
-        const ip = req.ip;
+        const key = `IP:${req.ip}`;
+        const current_time = Date.now()/1000;
+        const window_Time = current_time - windowSize;
+        //
 
-        const number_of_request = await redisClient.incr(ip); // increment the key value by 1 
+        await redisClient.zRemRangeByScore(key,0,window_Time);
 
-        //kya ye IP exist karta hai 
-        // set method redisClient.set(ip,`1:${Date.now()/1000});
-        //await redisClient.expire(3600);
+        const number_of_request = await redisClient.zCard(key);
 
-
-
-        if(number_of_request == 1){
-            redisClient.expire(ip,3600);
+        if(number_of_request>=Maxrequest){
+            throw new Error("No. of Request Exceeded.");
         }
+        
+        await redisClient.zAdd(key,[{score:current_time,value:`${current_time}:${Math.random()}`}]) //Request is added
 
-        if(number_of_request>10){
-            throw new Error("User Limit Exceeded.")
-        }
-        console.log(number_of_request);
-       
+        //key TTL increase karna 
+        await redisClient.expire(key,windowSize);
+
         next();
     }
     catch(err){
